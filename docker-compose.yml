@@ -1,0 +1,31 @@
+services:
+  pgsql:
+    image: pgvector/pgvector:pg16
+    ports:
+      - '${FORWARD_DB_PORT:-5432}:5432'
+    environment:
+      PGPASSWORD: '${DB_PASSWORD:-secret}'
+      POSTGRES_DB: '${DB_DATABASE:-saas_chatbot}'
+      POSTGRES_USER: '${DB_USERNAME:-user}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+    volumes:
+      - 'saas-pgsql:/var/lib/postgresql/data'
+    networks:
+      - saas-network
+    healthcheck:
+      test:
+        - CMD
+        - pg_isready
+        - '-q'
+        - '-d'
+        - '${DB_DATABASE:-saas_chatbot}'
+        - '-U'
+        - '${DB_USERNAME:-user}'
+      retries: 3
+      timeout: 5s
+networks:
+  saas-network:
+    driver: bridge
+volumes:
+  saas-pgsql:
+    driver: local

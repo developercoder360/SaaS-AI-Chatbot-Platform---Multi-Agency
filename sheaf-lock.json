@@ -1,0 +1,19 @@
+{
+    "files": {
+        "resources/js/utils.js": [
+            "dark-theme",
+            "modal"
+        ],
+        "resources/js/globals/modals.js": [
+            "modal"
+        ]
+    },
+    "helpers": [],
+    "internalDependencies": {
+        "icon": [
+            "button",
+            "input",
+            "dropdown"
+        ]
+    }
+}
